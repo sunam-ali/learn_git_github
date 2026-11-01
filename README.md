@@ -20,7 +20,7 @@
 3. Git Configuration Command:
   - Local (specific folder) & Global (all folder) & System [use system instead of global ]
   - git config -- list  - Check all Configuration
-  - git config --global list  - Check all Configuration globally
+  - git config --global --list  - Check all Configuration globally
   - git config -- user.name "sunam-ali"  - set username for current folder only
   - git config --global user.name "sunam-ali"  - set username for globally (all) folder (overwrite)
   - git config -- user.name  - Individually check
