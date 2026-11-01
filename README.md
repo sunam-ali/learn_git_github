@@ -1,82 +1,107 @@
+
 # Introduction :
 
-1. Folder Command
-  - dir - How many folders and files
-  - dir /a - Also Hidden folders and files
-  - cd tab - Change direcoty
-  - cd .. - Back from current folder
+1. Folder Command (Windows CMD)
+  - dir - List files and folders
+  - dir /a - Show all files and folders, including hidden ones
+  - cd folder_name - Change directory
+  - Tab - Autocomplete folder or file names
+  - cd .. - Go back to parent directory
   - cls - Clear command line
   - mkdir folder_name - Create folder
-  - rmdir folder_name - Delete folder
-  - rmdir /s example_folder - Remove Folder and all files and subdirectory
+  - rmdir folder_name - Delete empty folder
+  - rmdir /s folder_name - Remove folder and all files and subdirectories
 
-2. File Command:
-  - copy nul test.txt - Create file
+2. File Command (Windows CMD):
+  - copy nul test.txt - Create empty file
   - del test.txt - Delete file
-  - echo "hello world" > file_name - Edit File
-  - type file_name - view file
-  - copy test.txt new.txt - Copy one file to Another
+  - echo hello world > file_name.txt - Create or overwrite file content
+  - echo hello world >> file_name.txt - Append text to file
+  - type file_name.txt - View file content
+  - copy test.txt new.txt - Copy one file to another
 
 3. Git Configuration Command:
-  - Local (specific folder) & Global (all folder) & System [use system instead of global ]
-  - git config -- list  - Check all Configuration
-  - git config --global --list  - Check all Configuration globally
-  - git config -- user.name "sunam-ali"  - set username for current folder only
-  - git config --global user.name "sunam-ali"  - set username for globally (all) folder (overwrite)
-  - git config -- user.name  - Individually check
-  - git config --global --unset user.name   - to unset the username/email
+  - Local (specific repository) & Global (all repositories of current user) & System (all users on computer)
+  - git config --list - Check all configurations
+  - git config --global --list - Check global configurations
+  - git config --system --list - Check system configurations
+  - git config user.name "sunam-ali" - Set username for current repository only
+  - git config --global user.name "sunam-ali" - Set username globally (all repositories)
+  - git config --global user.email "mdsunam360@gmail.com" - Set email globally
+  - git config --get user.name - Individually check username
+  - git config --get user.email - Individually check email
+  - git config --global --unset user.name - Unset global username
+  - git config --global --unset user.email - Unset global email
+  - git config --show-origin --list - Show configuration and its file location
 
-4. How to Communicate with git to github (2 computer) usin SSH keys
-  - Generate public and private keys in Computer 1
-  - Add the Public keys to Computer 2
-  - Now Computer 2 can decrypt the data send from Computer 1
-  - Command :
-    - ssh-keygen -t rsa -C "github-email@gmail.com"
-  - Now Clone github Repo with SSH key and it works fine
+4. How to Communicate with GitHub using SSH keys:
+  - Generate public and private keys on Computer 1
+  - Add the public key to your GitHub account
+  - Keep the private key securely on Computer 1
+  - GitHub verifies your identity using the public key
+  - Command:
+    - ssh-keygen -t ed25519 -C "github-email@gmail.com"
+    - type %USERPROFILE%\.ssh\id_ed25519.pub - View public key
+    - ssh -T git@github.com - Test SSH connection
+  - Add public key to GitHub Settings > SSH and GPG keys
+  - Now clone GitHub repository using SSH URL
+  - For another computer, generate a separate SSH key and add its public key to GitHub
 
 # Git Basics :
 
-  - working directory  → stagging area  → local repo  → remote repo 
-  - Test (git init)    → git add        → git commit  → git push
-  
+  - Working Directory → Staging Area → Local Repository → Remote Repository
+  - git init → git add → git commit → git push
+
   1. Command
-  - git init 
-  - git status - check current status of files
-  - git add .  - now git can track file changes (stagging area)
-  - git diff   - to see where is changed
-  - git restore name        - to unstagging
-  - git commit -m "message" - to bring into local repo
-  - git log             - history of commit
-  - git log --oneline   - history of commit in one line
-  - git reset --soft HEAD^     - Uncommit 
-  - git reset --soft commit_id - Also Uncommit with previous commit id
-  - git checkout commit_id   - To See the diffrent version of code
-  - git show commit_id       - To See Details About a Commit
-  - git revert commit_id     - Remove commit but history will be there 
+  - git init - Initialize a new Git repository
+  - git status - Check current status of files
+  - git add . - Stage all changes in current directory and subdirectories
+  - git diff - See unstaged changes
+  - git diff --staged - See staged changes
+  - git restore --staged file_name - Unstage a file (keep changes)
+  - git restore file_name - Discard unstaged changes in a file
+  - git commit -m "message" - Save staged changes into local repository
+  - git log - Show commit history
+  - git log --oneline - Show commit history in one line
+  - git reset --soft HEAD^ - Undo latest commit but keep changes staged
+  - git reset --soft commit_id - Move branch to a previous commit but keep changes staged
+  - git checkout commit_id - View an older version (detached HEAD)
+  - git show commit_id - See details about a commit
+  - git revert commit_id - Reverse a commit by creating a new commit
 
-# Github Basics :
+# GitHub Basics :
 
-  - git remote -v   - shows the remote along with the url
-  - git remote add origin url - connect local repo to remote 
-  - git branch -M main        - to rename the branch name
-  - git push -u origin main   - send files
-  - git pull origin           - bring files with changes from remote
-  - git remote origin new     - change the name of the repo
-  - .gitignore                - preventing files and info to share like push , pull operation
+  - git remote -v - Show remote names and URLs
+  - git remote add origin url - Connect local repository to remote repository
+  - git branch -M main - Rename current branch to main
+  - git push -u origin main - Push files and set upstream tracking
+  - git pull origin main - Fetch and integrate changes from remote main
+  - git fetch origin - Download remote changes without merging
+  - git remote rename origin new - Change the remote name
+  - git remote set-url origin new_url - Change remote repository URL
+  - .gitignore - File used to ignore untracked files and folders (e.g. node_modules, .env)
 
-# git branch & merging :
+# Git Branch & Merging :
 
-  - git branch        - check how many local branch
-  - git branch -r     - check remote branch
-  - git branch -a     - check both remote and local branch
-  - git branch dev    - create new branch call "dev" like copying a branch
-  - git checkout dev  - switch to the new branch from main/master
-  - git checkout main - go back to the main branch
-  - git merge dev     - merge changes (2way merge/fast forward merge)
-  - git branch -d dev - delete the branch 
-  - BEST PRACTICE :  
-  1. pull the changes first without merging and make merge in remote then again pull
+  - git branch - Check local branches
+  - git branch -r - Check remote-tracking branches
+  - git branch -a - Check both local and remote-tracking branches
+  - git branch dev - Create a new branch called dev from current branch
+  - git switch dev - Switch to dev branch
+  - git switch main - Go back to main branch
+  - git switch -c dev - Create and switch to a new branch
+  - git merge dev - Merge dev into current branch
+  - git branch -d dev - Delete safely merged local branch
+  - BEST PRACTICE :
+  1. Pull the latest changes from remote main
+  2. Create a feature branch and work on it
+  3. Commit and push your changes
+  4. Create a Pull Request on GitHub
+  5. Merge the Pull Request into main
+  6. Pull the updated main branch to your computer
 
 # Collaboration and Contribution
-  - Fork (copy in remote) → git Clone → make pull request from remote
-  - Add collaborator to a git repo - Send invitation for collaborating a repo
+
+  - Fork (copy repository to your GitHub account) → Clone → Create branch → Make changes → Commit → Push → Pull Request
+  - Add collaborator to a GitHub repository - Send invitation to another GitHub user
+  - Collaborator accepts invitation and can contribute according to assigned permissions
